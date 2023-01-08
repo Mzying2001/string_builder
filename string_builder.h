@@ -1,3 +1,5 @@
+// string_builder.h by Mzying2001
+
 #ifndef __STRING_BUILDER_H__
 #define __STRING_BUILDER_H__
 
@@ -405,6 +407,27 @@ char sb_charat(string_builder *psb, size_t index)
     return pitem == NULL
                ? '\0'
                : _sbi_getval(pitem)[index - i];
+}
+
+int sb_setcharat(string_builder *psb, size_t index, char c)
+{
+    if (psb == NULL)
+    {
+        return 0;
+    }
+    size_t i = 0;
+    _string_builder_item *pitem = &psb->_root;
+    while (pitem && i + pitem->_len <= index)
+    {
+        i += pitem->_len;
+        pitem = pitem->_next;
+    }
+    if (pitem == NULL)
+    {
+        return 0;
+    }
+    _sbi_getval(pitem)[index - i] = c;
+    return 1;
 }
 
 #endif //__STRING_BUILDER_H__

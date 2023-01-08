@@ -29,7 +29,7 @@ string_builder for C
   Convert a double value to string and append it to string_builder
 
 + `string_builder *sb_insert(string_builder *psb, size_t index, const char *str)`  
-   Insert a string into the specified index
+  Insert a string into the specified index
 
 + `string_builder *sb_insertc(string_builder *psb, size_t index, char c)`  
   Insert a char into the specified index
@@ -42,6 +42,9 @@ string_builder for C
 
 + `char sb_charat(string_builder *psb, size_t index)`  
   Get the char at the specified index
+
++ `int sb_setcharat(string_builder *psb, size_t index, char c)`  
+  Set the char at the specified index
 
 + `size_t sb_length(string_builder *psb)`  
   Get the length of string_builder
