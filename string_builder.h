@@ -1,4 +1,5 @@
 // string_builder.h by Mzying2001
+// GitHub: https://github.com/Mzying2001/string_builder
 
 #ifndef __STRING_BUILDER_H__
 #define __STRING_BUILDER_H__
@@ -26,6 +27,14 @@ typedef struct _string_builder_item_struct
     } _val;
     struct _string_builder_item_struct *_next;
 } _string_builder_item;
+
+typedef struct
+{
+    _string_builder_item _root;
+    _string_builder_item *_tail;
+} string_builder;
+
+/*============================================================*/
 
 int _sbi_init(_string_builder_item *pitem, const char *str)
 {
@@ -117,11 +126,7 @@ inline char *_sbi_getval(_string_builder_item *pitem_not_null)
                : pitem_not_null->_val._there;
 }
 
-typedef struct
-{
-    _string_builder_item _root;
-    _string_builder_item *_tail;
-} string_builder;
+/*============================================================*/
 
 int sb_init(string_builder *psb)
 {
