@@ -166,12 +166,7 @@ string_builder *sb_append(string_builder *psb, const char *str)
     _string_builder_item *pitem = psb->_tail;
     if (pitem->_len == 0)
     {
-        _string_builder_item *next = pitem->_next;
-        if (_sbi_init(pitem, str))
-        {
-            pitem->_next = next;
-        }
-        else
+        if (!_sbi_init(pitem, str))
         {
             return NULL;
         }
