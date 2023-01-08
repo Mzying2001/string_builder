@@ -135,7 +135,7 @@ int sb_init(string_builder *psb)
         return 0;
     }
     psb->_tail = &psb->_root;
-    return _sbi_init(&psb->_root, "");
+    return _sbi_init(&psb->_root, NULL);
 }
 
 string_builder *sb_clear(string_builder *psb)
@@ -278,7 +278,7 @@ string_builder *sb_insert(string_builder *psb, size_t index, const char *str)
     _string_builder_item *insert_item2 = _sbi_new(_sbi_getval(pitem) + index);
     if (insert_item2 == NULL)
     {
-        free(insert_item);
+        _sbi_free(insert_item);
         return NULL;
     }
     _sbi_getval(pitem)[index] = '\0';
