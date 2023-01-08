@@ -5,7 +5,7 @@ string_builder for C
 ## functions
 
 + `string_builder *sb_new(const char *str)`  
-  Create a string_ Builder and initialize
+  Create a string_builder and initialize
 
 + `void sb_free(string_builder *psb)`  
   Clear and free string_builder
