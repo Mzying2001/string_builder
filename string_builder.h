@@ -163,7 +163,7 @@ string_builder *sb_append(string_builder *psb, const char *str)
     {
         return NULL;
     }
-    if (str == NULL)
+    if (str == NULL || *str == '\0')
     {
         return psb;
     }
@@ -198,10 +198,36 @@ string_builder *sb_append(string_builder *psb, const char *str)
 
 string_builder *sb_appendc(string_builder *psb, char c)
 {
-    char buf[2];
-    buf[0] = c;
-    buf[1] = '\0';
-    return sb_append(psb, buf);
+    if (psb == NULL)
+    {
+        return NULL;
+    }
+    if (c == '\0')
+    {
+        return psb;
+    }
+    _string_builder_item *pitem = psb->_tail;
+    if (pitem->_type == _SBIT_HERE && pitem->_len + 1 < _STRING_BUILDER_HERE_SIZE)
+    {
+        pitem->_val._here[pitem->_len] = c;
+        pitem->_val._here[++(pitem->_len)] = '\0';
+    }
+    else
+    {
+        pitem->_next = _sbi_new(NULL);
+        if (pitem->_next == NULL)
+        {
+            return NULL;
+        }
+        else
+        {
+            psb->_tail = pitem->_next;
+            psb->_tail->_val._here[0] = c;
+            psb->_tail->_val._here[1] = '\0';
+            psb->_tail->_len = 1;
+        }
+    }
+    return psb;
 }
 
 string_builder *sb_appendi(string_builder *psb, int val)
@@ -231,7 +257,7 @@ string_builder *sb_insert(string_builder *psb, size_t index, const char *str)
     {
         return NULL;
     }
-    if (str == NULL)
+    if (str == NULL || *str == '\0')
     {
         return psb;
     }
